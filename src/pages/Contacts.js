@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { ContactForm } from "components/ContactForm/ContactForm";
 import { ContactsList } from "components/ContactList/ContactList";
 import { Filter } from "components/Filter/Filter";
@@ -20,7 +21,7 @@ export default function Contacts()  {
           <title>Your contacts</title>
         </Helmet>
         <ContactForm />
-        <h2>Contacts</h2>
+        <Typography sx={{ marginTop:'25px', marginBottom:'15px'}} variant="h4">Your Contacts</Typography>
         <Filter />
         {isLoading & !error ? <b>LOADING...</b> : <ContactsList />}
       </div>

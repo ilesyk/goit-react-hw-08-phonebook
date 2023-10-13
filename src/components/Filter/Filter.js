@@ -1,15 +1,22 @@
+import { TextField, Typography } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { filterValue } from 'redux/contacts/filterSlice';
 
 export const Filter = () => {
   const dispatch = useDispatch();
   return (
-    <div>
-      <p>Find contacts by name</p>
-      <input
+    <div >
+      <Typography sx={{marginBottom:'10px'}}>Find contacts by name</Typography>
+      <TextField
+        id="outlined-basic"
+        label="Enter name"
+        variant="outlined"
+        size="small"
         type="text"
-        onChange={evt => dispatch(filterValue(evt.target.value))}
-        placeholder="Topic filter"
+        name="name"
+        sx={{ width:'350px'}}
+        onChange={evt => dispatch(filterValue(evt.target.value))
+        }
       />
     </div>
   );

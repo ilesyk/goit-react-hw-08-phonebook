@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { List, ListItem } from './ContactList.styled';
 import { selectContacts, selectVisibleContacts } from 'redux/contacts/selectors';
 import { deleteContact } from 'redux/contacts/operations';
+import { Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material';
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
@@ -12,22 +12,32 @@ export const ContactsList = () => {
     return <div>PhoneBook is empty</div>;
   }
   return (
-    <List>
+    <Box sx={{ marginTop:'15px',display:'flex', flexDirection:'column', gap:'10px'}}>
       {filteredContacts.map(contact => {
         return (
-          <ListItem key={contact.id}>
-            <p>
-              {contact.name}: {contact.number}
-            </p>
-            <button
-              type="button"
-              onClick={() => dispatch(deleteContact(contact.id))}
-            >
-              Delete
-            </button>
-          </ListItem>
+          <Card
+            sx={{ minWidth: 275, backgroundColor: '#e6ecff' }}
+            key={contact.id}
+          >
+            <CardContent>
+              <Typography variant="h5" sx={{ marginBottom: '10px' }}>
+                Name: {contact.name}
+              </Typography>
+              <Typography variant="body2">Number: {contact.number}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                type="button"
+                sx={{ marginLeft: 'auto' }}
+                onClick={() => dispatch(deleteContact(contact.id))}
+              >
+                Delete
+              </Button>
+            </CardActions>
+          </Card>
         );
       })}
-    </List>
+    </Box>
   );
 };

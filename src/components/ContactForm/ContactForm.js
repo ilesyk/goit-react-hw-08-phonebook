@@ -4,6 +4,7 @@ import { addContact } from 'redux/contacts/operations';
 import * as Yup from 'yup';
 import { FormWrap, ErrMsg } from './ContactForm.styled';
 import { selectContacts } from 'redux/contacts/selectors';
+import { Button, TextField, Typography } from '@mui/material';
 
 const quizSchema = Yup.object().shape({
   name: Yup.string()
@@ -34,36 +35,57 @@ export const ContactForm = () => {
     return dispatch(addContact(values));
   }
   return (
-    <Formik
-      initialValues={{
-        name: '',
-        number: '',
-      }}
-      validationSchema={quizSchema}
-      onSubmit={(values, actions) => {
-        addNewContact(values);
-        actions.resetForm();
-      }}
-    >
-      <FormWrap>
-        <label htmlFor="Name">Name</label>
-        <Field
-          id="name"
-          name="name"
-          type="text"
-          placeholder="Add contact name"
-        />
-        <ErrMsg name="name" component="div" />
-        <label htmlFor="number">Number</label>
-        <Field
-          id="number"
-          name="number"
-          type="text"
-          placeholder="Example: 123-45-67"
-        />
-        <ErrMsg name="number" component="div" />
-        <button type="submit">Add contact</button>
-      </FormWrap>
-    </Formik>
+    <>
+      <Typography sx={{marginBottom: '15px'}} variant="h4">Add Contact</Typography>
+      <Formik
+        initialValues={{
+          name: '',
+          number: '',
+        }}
+        validationSchema={quizSchema}
+        onSubmit={(values, actions) => {
+          addNewContact(values);
+          actions.resetForm();
+        }}
+      >
+        <FormWrap>
+          <TextField
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
+            size="small"
+            type="text"
+            name="name"
+          >
+            <Field
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Add contact name"
+            />
+          </TextField>
+          <ErrMsg name="name" component="div" />
+          <TextField
+            id="outlined-basic"
+            label="Number"
+            variant="outlined"
+            size="small"
+            type="text"
+            name="name"
+          >
+            <Field
+              id="number"
+              name="number"
+              type="text"
+              placeholder="Example: 123-45-67"
+            />
+          </TextField>
+          <ErrMsg name="number" component="div" />
+          <Button size="medium" variant="contained" type="submit">
+            Add contact
+          </Button>
+        </FormWrap>
+      </Formik>
+    </>
   );
 };
