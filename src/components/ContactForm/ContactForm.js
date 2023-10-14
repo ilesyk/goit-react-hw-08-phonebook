@@ -1,8 +1,8 @@
-import { Field, Formik } from 'formik';
+import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
 import * as Yup from 'yup';
-import { FormWrap, ErrMsg } from './ContactForm.styled';
+import { FormWrap } from './ContactForm.styled';
 import { selectContacts } from 'redux/contacts/selectors';
 import { Button, TextField, Typography } from '@mui/material';
 
@@ -36,7 +36,9 @@ export const ContactForm = () => {
   }
   return (
     <>
-      <Typography sx={{marginBottom: '15px'}} variant="h4">Add Contact</Typography>
+      <Typography sx={{ marginBottom: '15px' }} variant="h4">
+        Add Contact
+      </Typography>
       <Formik
         initialValues={{
           name: '',
@@ -48,43 +50,39 @@ export const ContactForm = () => {
           actions.resetForm();
         }}
       >
-        <FormWrap>
-          <TextField
-            id="outlined-basic"
-            label="Name"
-            variant="outlined"
-            size="small"
-            type="text"
-            name="name"
-          >
-            <Field
+        {formik => (
+          <FormWrap>
+            <TextField
               id="name"
               name="name"
+              label="Name"
+              size="small"
               type="text"
               placeholder="Add contact name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={formik.touched.name && formik.errors.name}
             />
-          </TextField>
-          <ErrMsg name="name" component="div" />
-          <TextField
-            id="outlined-basic"
-            label="Number"
-            variant="outlined"
-            size="small"
-            type="text"
-            name="name"
-          >
-            <Field
+            <TextField
               id="number"
               name="number"
+              label="Number"
+              size="small"
               type="text"
               placeholder="Example: 123-45-67"
+              value={formik.values.number}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.number && Boolean(formik.errors.number)}
+              helperText={formik.touched.number && formik.errors.number}
             />
-          </TextField>
-          <ErrMsg name="number" component="div" />
-          <Button size="medium" variant="contained" type="submit">
-            Add contact
-          </Button>
-        </FormWrap>
+            <Button size="medium" variant="contained" type="submit">
+              Add contact
+            </Button>
+          </FormWrap>
+        )}
       </Formik>
     </>
   );
